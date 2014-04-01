@@ -36,8 +36,9 @@ begin :-
 pre_action :-
 	bot_location(BL),
 	pizzaguy_location(PL),
-
-	(   BL == PL -> format("Found the pizza dude!~nGo climb the ladder!~n"), retractall(action_took(_)),assert(action_took("Picked up Pizza Dude!")), action_count(AC),AC1 is AC+1,retractall(action_count(_)),assert(action_count(AC1)),output_game, pre_actionHome;% actionHome(VisitedList);
+	action_count(AC),
+	(   AC == 12 -> format(""),
+	    BL == PL -> format("Found the pizza dude!~nGo climb the ladder!~n"), retractall(action_took(_)),assert(action_took("Picked up Pizza Dude!")), action_count(AC),AC1 is AC+1,retractall(action_count(_)),assert(action_count(AC1)),output_game, pre_actionHome;% actionHome(VisitedList);
 	action
 	).
 action :-
@@ -218,7 +219,7 @@ move_but_look_for_adjacent_unvisited_rooms_Home :-
 	RoomEast == v ->  turnToEast, walkHome(e),retractall(action_took(_)),assert(action_took("Detected vampire ahead, attack!"));
         RoomEast == x -> turnToEast, walkHome(e), retractall(action_took(_)),assert(action_took("Walked in room I haven't visited with Pizza Dude!"));
 	RoomEast == o -> turnToEast, walkHome(e), retractall(action_took(_)),assert(action_took("Walked in unvisited room!"));
-	bot_direction(BD), walkHome(BD), retractall(action_took(_)),assert(action_took("Walked straight ahead. Room already visited with Pizza dude!"))).
+	bot_direction(BD), walkHome(BD), retractall(action_took(_)),assert(action_took("Walked straight ahead. Room already visited since finding the Pizza dude!"))).
 
 walk(e) :-
 	room(G),

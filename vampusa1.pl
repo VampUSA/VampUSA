@@ -36,7 +36,6 @@ begin :-
 pre_action :-
 	bot_location(BL),
 	pizzaguy_location(PL),
-
 	(   BL == PL -> format("Found the pizza dude!~nGo climb the ladder!~n"), retractall(action_took(_)),assert(action_took("Picked up Pizza Dude!")), action_count(AC),AC1 is AC+1,retractall(action_count(_)),assert(action_count(AC1)),output_game, pre_actionHome;% actionHome(VisitedList);
 	action
 	).
